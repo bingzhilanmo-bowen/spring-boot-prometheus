@@ -264,7 +264,7 @@
               <dataFile>target/jacoco.exec</dataFile>
               <!-- Sets the output directory for the code coverage report. -->
               <outputDirectory>target/jacoco-ut</outputDirectory>
-              <!-- 排除不需要的-->
+              <!-- exclude packages-->
               <excludes>
                 <exclude>com/lanmo/sbp/model/*</exclude>
                 <exclude>com/lanmo/sbp/exception/*</exclude>
