@@ -6,8 +6,31 @@
 - 地址：http://{ip:localhost}t:{port:8080}/sbp/v1/actuator/prometheus
 - 查看指标: http://{ip:localhost}t:{port:8080}/sbp/v1/actuator/metrics
 
+### 配置
+- Maven
+```$xslt
+ <!-- Spring boot actuator to expose metrics endpoint -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <!-- Micormeter core dependecy -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>${micrometer.version}</version>
+    </dependency>
+```
+- Config
+```$xslt
+# 根据自己需求去查配置修改
+management.endpoints.web.exposure.include=metrics,prometheus
+management.endpoint.metrics.enabled=true
+management.endpoint.prometheus.enabled=true
+management.metrics.export.prometheus.enabled=true
+```
 ### Prometheus是什么
-- prometheus是由谷歌研发的一款开源的监控软件，目前CNCF孵化中，是继k8s托管的第二个项目，在云原生的开发中是使用最常见的监控系统，实时上的下一代监控系统
+- prometheus是由谷歌研发的一款开源的监控软件，目前CNCF孵化中，是继k8s托管的第二个项目，在云原生的开发中是使用最常见的监控系统，事实上的下一代监控系统
 
 ### Doc
 - https://prometheus.io/docs/introduction/overview/
@@ -70,10 +93,37 @@ docker run -d \
 - 查看接口请求
 ![image](./doc/req.jpg)
 
+### 如果需要监控Docker容器
+
+```$xslt
+docker pull google/cadvisor 
+
+docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --publish=28080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest
+
+在prometheus.yml文件中追加
+- job_name: cadvisor
+  static_configs:
+  - targets:
+    - IP:{port:8080}
+
+```
+
+### 如果需要监控主机Mysql等可以找对应的Exporter
+- Node: https://github.com/prometheus/node_exporter
+- Mysql: https://github.com/prometheus/mysqld_exporter
+- Redis: https://github.com/oliver006/redis_exporter
+Other: Github上查找
 
 ## 使用Jacoco做代码覆盖率扫描
 - 命令：mvn clean test org.jacoco:jacoco-maven-plugin:0.8.3:prepare-agent
-
 
 ## 使用H2数据库和MockTick 做单元测试
 - H2数据库和mysql等有些创建表语法不一致，可使用 Test包中的Transform 工具转换表语句
