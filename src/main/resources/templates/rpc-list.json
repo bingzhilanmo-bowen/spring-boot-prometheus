@@ -1,0 +1,11 @@
+{
+  "request" : {
+    "urlPath" : "/sbp/v1/list",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"code\":200,\"data\":{\"list\":[],\"offset\":1,\"size\":10,\"total\":0},\"message\":\"\"}"
+  }
+
+}
