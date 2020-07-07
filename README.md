@@ -1,4 +1,7 @@
 # spring-boot-prometheus
+## 启动服务
+- 修改 application-local.properties 配置文件，主要是数据库；或者自己指定配置文件
+
 ## 使用 Prometheus 做服务监控
 - 地址：http://{ip:localhost}t:{port:8080}/sbp/v1/actuator/prometheus
 - 查看指标: http://{ip:localhost}t:{port:8080}/sbp/v1/actuator/metrics
@@ -24,7 +27,7 @@
 ![image](https://prometheus.io/assets/architecture.png)
 
 ### Prometheus Server
-
+- Demo prometheus.yml
 ```$xslt
 global:
   scrape_interval:     15s # By default, scrape targets every 15 seconds.
