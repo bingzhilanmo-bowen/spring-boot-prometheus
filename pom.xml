@@ -21,7 +21,7 @@
     <docker.image.prefix>springboot</docker.image.prefix>
     <mybatis-spring.version>1.1.1</mybatis-spring.version>
     <druid.version>1.0.31</druid.version>
-    <mysql-connector.version>5.1.46</mysql-connector.version>
+    <mysql-connector.version>8.0.16</mysql-connector.version>
     <guava.version>23.0</guava.version>
     <lombok.version>1.16.20</lombok.version>
     <swagger.version>2.9.2</swagger.version>
